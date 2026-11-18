@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block titulo %}Horarios{% endblock %}
+{% block contenido %}
+<h1 class="h3 mb-3">Horarios de atención</h1>
+<div class="row g-3">
+{% for o in odontologos %}
+  <div class="col-lg-6">
+    <div class="tarjeta h-100">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="h5 mb-0">{{ o }}</h2>
+        <div class="d-flex gap-1">
+          <a class="btn btn-sm btn-sgco" href="{% url 'agenda:horario_nuevo' o.pk %}">Agregar horario</a>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'agenda:bloqueo_nuevo' o.pk %}">Bloquear agenda</a>
+        </div>
+      </div>
+      <table class="table table-sm mb-3">
+        {% for h in o.horarios.all %}
+          <tr><td>{{ h }}</td><td class="text-end">
+            <form method="post" action="{% url 'agenda:horario_borrar' h.pk %}">{% csrf_token %}<button class="btn btn-sm btn-link text-danger p-0">Quitar</button></form>
+          </td></tr>
+        {% empty %}<tr><td class="text-muted">Sin horarios.</td></tr>{% endfor %}
+      </table>
+      <h3 class="h6 text-muted">Bloqueos</h3>
+      <ul class="mb-0">
+        {% for b in o.bloqueos.all %}<li>{{ b.inicio|date:"d/m/Y H:i" }} a {{ b.fin|date:"d/m/Y H:i" }}: {{ b.motivo }}</li>
+        {% empty %}<li class="text-muted">Sin bloqueos.</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

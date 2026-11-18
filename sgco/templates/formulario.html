@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <h1 class="h3 mb-3">{{ titulo }}</h1>
+    <form method="post" class="tarjeta" novalidate>
+      {% csrf_token %}
+      {% include 'campos.html' %}
+      <button class="btn btn-sgco">Guardar</button>
+      {% if volver %}<a class="btn btn-link" href="{% url volver %}">Cancelar</a>{% elif volver_url %}<a class="btn btn-link" href="{{ volver_url }}">Cancelar</a>{% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+flowchart LR
+    subgraph CLIENTE["Cliente"]
+        NAV["Navegador web<br/>(recepción, consultorios,<br/>celular del paciente)"]
+    end
+    subgraph SERVIDOR["Servidor de aplicación (Django)"]
+        direction TB
+        P["Capa de presentación<br/>plantillas HTML + Bootstrap"]
+        C["Capa de control<br/>vistas y formularios,<br/>control de sesión y de rol"]
+        S["Capa de servicios (negocio)<br/>AgendaService, HistoriaService,<br/>PagoService, AuditoriaService"]
+        D["Capa de acceso a datos<br/>modelos ORM"]
+        I["Integraciones<br/>interfaz Notificador"]
+        T["Tarea programada<br/>recordatorios diarios"]
+        P --- C
+        C --> S
+        S --> D
+        S --> I
+        T --> S
+    end
+    BD[("PostgreSQL")]
+    ARCH[("Archivos adjuntos")]
+    MSG["Servicio de correo<br/>y API de WhatsApp"]
+    NAV -- "HTTPS (peticiones y respuestas HTML)" --> C
+    D -- "SQL" --> BD
+    S -- "archivos" --> ARCH
+    I -- "HTTPS / SMTP" --> MSG

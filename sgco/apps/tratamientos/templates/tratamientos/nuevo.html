@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block titulo %}Nuevo plan{% endblock %}
+{% block contenido %}
+<h1 class="h3 mb-3">Nuevo plan de tratamiento · {{ paciente }}</h1>
+<form method="post" class="tarjeta" novalidate>
+  {% csrf_token %}
+  {% include 'campos.html' %}
+  {{ items.management_form }}
+  {% if items.non_form_errors %}<div class="alert alert-danger">{{ items.non_form_errors|join:" " }}</div>{% endif %}
+  <table class="table align-middle">
+    <thead><tr><th>Procedimiento</th><th style="width:140px">Pieza</th><th style="width:200px">Valor</th></tr></thead>
+    <tbody>
+    {% for f in items %}
+      <tr>
+        <td>{{ f.id }}{{ f.procedimiento }}{% for e in f.procedimiento.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</td>
+        <td>{{ f.pieza }}</td>
+        <td>{{ f.valor }}{% for e in f.valor.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <button class="btn btn-sgco">Crear plan</button>
+  <a class="btn btn-link" href="{% url 'pacientes:detalle' paciente.pk %}">Cancelar</a>
+</form>
+{% endblock %}

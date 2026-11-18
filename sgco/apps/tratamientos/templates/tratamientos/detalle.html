@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block titulo %}Plan de tratamiento{% endblock %}
+{% block contenido %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h1 class="h3 mb-0">{{ plan.descripcion }}</h1>
+    <div class="text-muted"><a href="{% url 'pacientes:detalle' plan.paciente.pk %}">{{ plan.paciente }}</a> · {{ plan.odontologo }} · {{ plan.fecha|date:"d/m/Y" }} · {{ plan.get_estado_display }}</div>
+  </div>
+  {% if plan.estado == 'PENDIENTE' and not user.es_recepcionista %}
+  <form method="post" action="{% url 'tratamientos:estado' plan.pk %}" class="d-flex gap-2">{% csrf_token %}
+    <button class="btn btn-success" name="estado" value="APROBADO">Paciente aprueba</button>
+    <button class="btn btn-outline-danger" name="estado" value="CANCELADO">Cancelar plan</button>
+  </form>
+  {% endif %}
+</div>
+<div class="row g-3 mb-3">
+  <div class="col-md-4"><div class="tarjeta"><div class="text-muted">Valor total</div><div class="cifra">${{ plan.valor_total|intcomma }}</div></div></div>
+  <div class="col-md-4"><div class="tarjeta"><div class="text-muted">Pagado</div><div class="cifra">${{ plan.total_pagado|intcomma }}</div></div></div>
+  <div class="col-md-4"><div class="tarjeta"><div class="text-muted">Saldo</div><div class="cifra">${{ plan.saldo|intcomma }}</div></div></div>
+</div>
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="tarjeta">
+      <h2 class="h6 text-muted">Procedimientos</h2>
+      <table class="table table-sm mb-0">
+        <thead><tr><th>Procedimiento</th><th>Pieza</th><th class="text-end">Valor</th></tr></thead>
+        {% for i in items %}<tr><td>{{ i.procedimiento }}</td><td>{{ i.pieza|default:"—" }}</td><td class="text-end">${{ i.valor|intcomma }}</td></tr>{% endfor %}
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="tarjeta">
+      <h2 class="h6 text-muted">Pagos y abonos</h2>
+      <table class="table table-sm">
+        <thead><tr><th>Fecha</th><th>Medio</th><th>Registró</th><th class="text-end">Valor</th></tr></thead>
+        {% for p in pagos %}<tr><td>{{ p.fecha|date:"d/m/Y" }}</td><td>{{ p.get_medio_pago_display }}</td><td>{{ p.registrado_por }}</td><td class="text-end">${{ p.valor|intcomma }}</td></tr>
+        {% empty %}<tr><td colspan="4" class="text-muted">Sin pagos.</td></tr>{% endfor %}
+      </table>
+      {% if not user.es_odontologo and plan.estado != 'CANCELADO' and plan.saldo > 0 %}
+      <form method="post" action="{% url 'tratamientos:pagar' plan.pk %}" class="row g-2 align-items-end" novalidate>{% csrf_token %}
+        <div class="col-sm-5"><label class="form-label">Valor</label><input name="valor" type="number" min="1" class="form-control" required></div>
+        <div class="col-sm-4"><label class="form-label">Medio</label>{{ form_pago.medio_pago }}</div>
+        <div class="col-sm-3"><button class="btn btn-sgco w-100">Registrar pago</button></div>
+      </form>
+      <script>document.querySelectorAll('select').forEach(e => e.classList.add('form-select'));</script>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

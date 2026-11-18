@@ -1,0 +1,78 @@
+Resultados de las pruebas automáticas de SGCO - 2026-11-17 18:28
+Comando: python manage.py test pruebas -v 2
+
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 66 test(s).
+test_ingreso_valido (pruebas.test_casos_prueba.CP01_InicioSesion.test_ingreso_valido) ... ok
+test_sesion_expira_a_los_15_minutos_sin_uso (pruebas.test_casos_prueba.CP01_InicioSesion.test_sesion_expira_a_los_15_minutos_sin_uso) ... ok
+test_sin_sesion_redirige_al_ingreso (pruebas.test_casos_prueba.CP01_InicioSesion.test_sin_sesion_redirige_al_ingreso) ... ok
+test_usuario_inactivo_no_ingresa (pruebas.test_casos_prueba.CP01_InicioSesion.test_usuario_inactivo_no_ingresa) ... ok
+test_admin_crea_odontologo (pruebas.test_casos_prueba.CP02_UsuariosYRoles.test_admin_crea_odontologo) ... ok
+test_admin_inactiva_usuario (pruebas.test_casos_prueba.CP02_UsuariosYRoles.test_admin_inactiva_usuario) ... ok
+test_recepcion_no_gestiona_usuarios (pruebas.test_casos_prueba.CP02_UsuariosYRoles.test_recepcion_no_gestiona_usuarios) ... ok
+test_documento_no_se_repite (pruebas.test_casos_prueba.CP03_RegistroPacientes.test_documento_no_se_repite) ... ok
+test_registra_paciente (pruebas.test_casos_prueba.CP03_RegistroPacientes.test_registra_paciente) ... ok
+test_sin_autorizacion_no_registra (pruebas.test_casos_prueba.CP03_RegistroPacientes.test_sin_autorizacion_no_registra) ... ok
+test_por_documento (pruebas.test_casos_prueba.CP04_BusquedaPacientes.test_por_documento) ... ok
+test_por_nombre (pruebas.test_casos_prueba.CP04_BusquedaPacientes.test_por_nombre) ... ok
+test_por_telefono (pruebas.test_casos_prueba.CP04_BusquedaPacientes.test_por_telefono) ... ok
+test_agrega_horario_de_tarde (pruebas.test_casos_prueba.CP05_Horarios.test_agrega_horario_de_tarde) ... ok
+test_franja_bloqueada_no_aparece_libre (pruebas.test_casos_prueba.CP05_Horarios.test_franja_bloqueada_no_aparece_libre) ... ok
+test_recepcion_no_cambia_horarios (pruebas.test_casos_prueba.CP05_Horarios.test_recepcion_no_cambia_horarios) ... ok
+test_agenda_y_queda_programada (pruebas.test_casos_prueba.CP06_AgendarCita.test_agenda_y_queda_programada) ... ok
+test_muestra_franjas_libres (pruebas.test_casos_prueba.CP06_AgendarCita.test_muestra_franjas_libres) ... ok
+test_odontologo_no_agenda (pruebas.test_casos_prueba.CP06_AgendarCita.test_odontologo_no_agenda) ... ok
+test_rechaza_cita_cruzada (pruebas.test_casos_prueba.CP07_ControlCruces.test_rechaza_cita_cruzada) ... ok
+test_rechaza_fuera_de_horario (pruebas.test_casos_prueba.CP07_ControlCruces.test_rechaza_fuera_de_horario) ... ok
+test_rechaza_solapamiento_parcial (pruebas.test_casos_prueba.CP07_ControlCruces.test_rechaza_solapamiento_parcial) ... ok
+test_cancelar_con_motivo_libera_la_franja (pruebas.test_casos_prueba.CP08_ReprogramarCancelar.test_cancelar_con_motivo_libera_la_franja) ... ok
+test_cancelar_sin_motivo_no_cancela (pruebas.test_casos_prueba.CP08_ReprogramarCancelar.test_cancelar_sin_motivo_no_cancela) ... ok
+test_reprograma_con_motivo (pruebas.test_casos_prueba.CP08_ReprogramarCancelar.test_reprograma_con_motivo) ... ok
+test_odontologo_solo_ve_su_agenda (pruebas.test_casos_prueba.CP09_AgendaDiaria.test_odontologo_solo_ve_su_agenda) ... ok
+test_recepcion_ve_todos_los_odontologos (pruebas.test_casos_prueba.CP09_AgendaDiaria.test_recepcion_ve_todos_los_odontologos) ... ok
+test_odontologo_abre_historia (pruebas.test_casos_prueba.CP10_HistoriaClinica.test_odontologo_abre_historia) ... ok
+test_registra_evolucion (pruebas.test_casos_prueba.CP11_Evolucion.test_registra_evolucion) ... ok
+test_rechaza_pago_mayor_al_saldo (pruebas.test_casos_prueba.CP12_Pagos.test_rechaza_pago_mayor_al_saldo) ... ok
+test_registra_abono_y_calcula_saldo (pruebas.test_casos_prueba.CP12_Pagos.test_registra_abono_y_calcula_saldo) ... ok
+test_consulta_de_historia_queda_registrada (pruebas.test_casos_prueba.CP13_Auditoria.test_consulta_de_historia_queda_registrada) ... ok
+test_solo_admin_ve_la_auditoria (pruebas.test_casos_prueba.CP13_Auditoria.test_solo_admin_ve_la_auditoria) ... ok
+test_matriz_de_permisos (pruebas.test_casos_prueba.CP14_AccesoPorRol.test_matriz_de_permisos) ... ok
+test_cita_se_guarda_con_mensajeria_caida (pruebas.test_casos_prueba.CP15_ToleranciaMensajeria.test_cita_se_guarda_con_mensajeria_caida) ... ok
+test_vista_agenda_aunque_falle_la_mensajeria (pruebas.test_casos_prueba.CP15_ToleranciaMensajeria.test_vista_agenda_aunque_falle_la_mensajeria) ... ok
+test_contrasena_no_se_guarda_en_texto_plano (pruebas.test_casos_prueba.CP16_ContrasenasYHttps.test_contrasena_no_se_guarda_en_texto_plano) ... ok
+test_produccion_exige_https (pruebas.test_casos_prueba.CP16_ContrasenasYHttps.test_produccion_exige_https) ... ok
+test_genera_respaldo_con_los_pacientes (pruebas.test_casos_prueba.CP17_Respaldo.test_genera_respaldo_con_los_pacientes) ... ok
+test_envia_recordatorio_a_quien_acepta (pruebas.test_casos_prueba.CP18_Recordatorios.test_envia_recordatorio_a_quien_acepta) ... ok
+test_marca_inasistencia (pruebas.test_casos_prueba.CP19_Asistencia.test_marca_inasistencia) ... ok
+test_no_marca_citas_futuras (pruebas.test_casos_prueba.CP19_Asistencia.test_no_marca_citas_futuras) ... ok
+test_crea_plan_con_items (pruebas.test_casos_prueba.CP20_PlanTratamiento.test_crea_plan_con_items) ... ok
+test_porcentaje_de_inasistencia (pruebas.test_casos_prueba.CP21_Reportes.test_porcentaje_de_inasistencia) ... ok
+test_agendar_notifica_y_audita (pruebas.test_unitarias.AgendaServiceTests.test_agendar_notifica_y_audita) ... ok
+test_agendar_rechaza_bloqueo (pruebas.test_unitarias.AgendaServiceTests.test_agendar_rechaza_bloqueo) ... ok
+test_disponibilidad_excluye_franjas_ocupadas (pruebas.test_unitarias.AgendaServiceTests.test_disponibilidad_excluye_franjas_ocupadas) ... ok
+test_disponibilidad_lunes_de_8_a_12_son_8_franjas (pruebas.test_unitarias.AgendaServiceTests.test_disponibilidad_lunes_de_8_a_12_son_8_franjas) ... ok
+test_domingo_no_hay_franjas (pruebas.test_unitarias.AgendaServiceTests.test_domingo_no_hay_franjas) ... ok
+test_cancelar_exige_motivo (pruebas.test_unitarias.CitaTests.test_cancelar_exige_motivo) ... ok
+test_cita_cancelada_no_ocupa_la_franja (pruebas.test_unitarias.CitaTests.test_cita_cancelada_no_ocupa_la_franja) ... ok
+test_hora_fin (pruebas.test_unitarias.CitaTests.test_hora_fin) ... ok
+test_marcar_asistencia (pruebas.test_unitarias.CitaTests.test_marcar_asistencia) ... ok
+test_no_marca_asistencia_de_cancelada (pruebas.test_unitarias.CitaTests.test_no_marca_asistencia_de_cancelada) ... ok
+test_no_se_cruzan_con_otro_odontologo (pruebas.test_unitarias.CitaTests.test_no_se_cruzan_con_otro_odontologo) ... ok
+test_no_se_cruzan_si_son_consecutivas (pruebas.test_unitarias.CitaTests.test_no_se_cruzan_si_son_consecutivas) ... ok
+test_se_cruzan_si_se_solapan (pruebas.test_unitarias.CitaTests.test_se_cruzan_si_se_solapan) ... ok
+test_contiene (pruebas.test_unitarias.HorarioAtencionTests.test_contiene) ... ok
+test_auditoria_no_se_borra_ni_se_modifica (pruebas.test_unitarias.InmutabilidadTests.test_auditoria_no_se_borra_ni_se_modifica) ... ok
+test_evolucion_no_se_borra_ni_se_modifica (pruebas.test_unitarias.InmutabilidadTests.test_evolucion_no_se_borra_ni_se_modifica) ... ok
+test_edad (pruebas.test_unitarias.PersonaTests.test_edad) ... ok
+test_usuario_inactivo_no_tiene_rol (pruebas.test_unitarias.PersonaTests.test_usuario_inactivo_no_tiene_rol) ... ok
+test_no_se_aceptan_valores_negativos (pruebas.test_unitarias.PlanTratamientoTests.test_no_se_aceptan_valores_negativos) ... ok
+test_no_se_paga_mas_del_saldo (pruebas.test_unitarias.PlanTratamientoTests.test_no_se_paga_mas_del_saldo) ... ok
+test_valor_total_y_saldo (pruebas.test_unitarias.PlanTratamientoTests.test_valor_total_y_saldo) ... ok
+
+----------------------------------------------------------------------
+Ran 66 tests in 118.580s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).

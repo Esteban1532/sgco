@@ -1,0 +1,121 @@
+classDiagram
+    direction TB
+    class Persona {
+        <<abstract>>
+        #documento: string
+        #nombres: string
+        #apellidos: string
+        #telefono: string
+        #correo: string
+        +nombreCompleto() string
+    }
+    class Paciente {
+        -fechaNacimiento: Date
+        -aceptaMensajes: boolean
+        +edad() int
+    }
+    class Usuario {
+        -usuario: string
+        -claveHash: string
+        -rol: Rol
+        -activo: boolean
+        +verificarClave(clave) boolean
+        +tienePermiso(permiso) boolean
+    }
+    class Odontologo {
+        -registroProfesional: string
+        -especialidad: string
+        +horarioDel(fecha) HorarioAtencion[]
+    }
+    class HorarioAtencion {
+        -diaSemana: int
+        -horaInicio: Time
+        -horaFin: Time
+        +contiene(inicio, fin) boolean
+    }
+    class Cita {
+        -fecha: Date
+        -horaInicio: Time
+        -duracionMin: int
+        -motivo: string
+        -estado: EstadoCita
+        +horaFin() Time
+        +seCruzaCon(otra) boolean
+        +cancelar(motivo) void
+        +marcarAsistencia(asistio) void
+    }
+    class HistoriaClinica {
+        -fechaApertura: Date
+        -antecedentes: string
+        -alergias: string
+        +agregarEvolucion(evolucion) void
+    }
+    class Evolucion {
+        -fecha: DateTime
+        -procedimiento: string
+        -descripcion: string
+    }
+    class PlanTratamiento {
+        -fecha: Date
+        -estado: EstadoPlan
+        +valorTotal() decimal
+        +saldo() decimal
+    }
+    class ItemTratamiento {
+        -procedimiento: string
+        -pieza: string
+        -valor: decimal
+    }
+    class Pago {
+        -fecha: Date
+        -valor: decimal
+        -medioPago: MedioPago
+    }
+    class AgendaService {
+        -citas: CitaRepositorio
+        -notificador: Notificador
+        -auditoria: AuditoriaService
+        +disponibilidad(odontologo, fecha) Franja[]
+        +agendar(datos, usuario) Cita
+        +reprogramar(cita, nuevaFecha, usuario) Cita
+        +cancelar(cita, motivo, usuario) void
+    }
+    class RecordatorioService {
+        -notificador: Notificador
+        +enviarRecordatoriosDe(fecha) int
+    }
+    class Notificador {
+        <<interface>>
+        +enviar(destinatario, mensaje) boolean
+    }
+    class CorreoNotificador {
+        -servidorSmtp: string
+        +enviar(destinatario, mensaje) boolean
+    }
+    class WhatsAppNotificador {
+        -token: string
+        +enviar(destinatario, mensaje) boolean
+    }
+    class AuditoriaService {
+        +registrar(usuario, accion, registro) void
+    }
+
+    Persona <|-- Paciente
+    Persona <|-- Usuario
+    Usuario <|-- Odontologo
+    Odontologo "1" *-- "1..*" HorarioAtencion
+    Paciente "1" --> "0..*" Cita
+    Odontologo "1" --> "0..*" Cita
+    Paciente "1" *-- "1" HistoriaClinica
+    HistoriaClinica "1" *-- "0..*" Evolucion
+    Evolucion "0..*" --> "1" Odontologo : registra
+    Evolucion "0..1" --> "0..1" Cita : atención
+    Paciente "1" --> "0..*" PlanTratamiento
+    PlanTratamiento "1" *-- "1..*" ItemTratamiento
+    PlanTratamiento "1" o-- "0..*" Pago
+    AgendaService ..> Cita
+    AgendaService --> Notificador
+    AgendaService --> AuditoriaService
+    RecordatorioService --> Notificador
+    Notificador <|.. CorreoNotificador
+    Notificador <|.. WhatsAppNotificador

@@ -1,0 +1,51 @@
+{% load static %}<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}SGCO{% endblock %} · SGCO</title>
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'sgco.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-sgco mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="{% url 'inicio' %}">SGCO</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-label="Menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="{% url 'agenda:dia' %}">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'pacientes:lista' %}">Pacientes</a></li>
+        {% if user.es_recepcionista or user.es_administrador %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'agenda:nueva' %}">Agendar cita</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'notificaciones:lista' %}">Mensajes</a></li>
+        {% endif %}
+        {% if user.es_administrador %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'agenda:horarios' %}">Horarios</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'cuentas:usuarios' %}">Usuarios</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'reportes' %}">Reportes</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'auditoria' %}">Auditoría</a></li>
+        {% endif %}
+      </ul>
+      <span class="navbar-text text-white me-3">{{ user.nombre_completo }} · {{ user.get_rol_display }}</span>
+      <form method="post" action="{% url 'cuentas:logout' %}">{% csrf_token %}
+        <button class="btn btn-sm btn-outline-light">Salir</button>
+      </form>
+    </div>
+  </div>
+</nav>
+{% endif %}
+<main class="container-fluid px-4 pb-5">
+  {% for m in messages %}
+  <div class="alert alert-{% if m.tags == 'error' %}danger{% else %}{{ m.tags }}{% endif %} alert-dismissible fade show" role="alert">
+    {{ m }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+  </div>
+  {% endfor %}
+  {% block contenido %}{% endblock %}
+</main>
+<script src="{% static 'vendor/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

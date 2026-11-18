@@ -1,0 +1,8 @@
+Medición de rendimiento (RNF11) - 2026-11-17 18:30
+Comando: python manage.py test pruebas.medicion_rendimiento
+Equipo: Intel(R) Core(TM) i5-5300U CPU @ 2.30GHz, Windows 10, Python 3.14.7, Django 5.2, SQLite
+OK
+Datos: 1200 citas, 200 pacientes, 3 odontólogos. 30 repeticiones por operación.
+Cargar agenda del día (48 citas): promedio 28.6 ms, mediana 27.0 ms, máximo 71.8 ms
+Ver horas libres al agendar: promedio 60.8 ms, mediana 57.5 ms, máximo 100.6 ms
+Guardar una cita (validación + auditoría + mensaje): promedio 11.9 ms, mediana 11.8 ms, máximo 13.1 ms

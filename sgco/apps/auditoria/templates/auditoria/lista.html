@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block titulo %}Auditoría{% endblock %}
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Auditoría</h1>
+  <form method="get" class="d-flex gap-2">
+    <select name="accion" class="form-select">
+      <option value="">Todas las acciones</option>
+      {% for a in acciones %}<option {% if a == accion %}selected{% endif %}>{{ a }}</option>{% endfor %}
+    </select>
+    <button class="btn btn-outline-secondary">Filtrar</button>
+  </form>
+</div>
+<div class="tarjeta">
+<table class="table table-sm mb-0">
+  <thead><tr><th>Fecha</th><th>Usuario</th><th>Acción</th><th>Registro</th><th>Detalle</th></tr></thead>
+  <tbody>
+  {% for r in registros %}
+    <tr><td>{{ r.fecha|date:"d/m/Y H:i:s" }}</td><td>{{ r.usuario|default:"—" }}</td><td>{{ r.accion }}</td><td>{{ r.modelo }} #{{ r.objeto_id }}</td><td>{{ r.detalle }}</td></tr>
+  {% empty %}<tr><td colspan="5" class="text-muted">Sin registros.</td></tr>{% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="small text-muted mt-2">Los registros de auditoría no se pueden modificar ni borrar.</p>
+{% endblock %}

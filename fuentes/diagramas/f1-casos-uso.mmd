@@ -1,0 +1,31 @@
+flowchart LR
+    REC["Recepcionista"]
+    ODO["Odontólogo"]
+    PAC["Paciente"]
+    ADM["Administrador"]
+    MSG["Servicio de mensajería<br/>(correo / WhatsApp)"]
+    subgraph SIS["Sistema de gestión de citas e historias clínicas"]
+        direction TB
+        UC1(["Iniciar sesión"])
+        UC2(["Registrar y buscar paciente"])
+        UC3(["Agendar cita"])
+        UC4(["Verificar disponibilidad"])
+        UC5(["Reprogramar o cancelar cita"])
+        UC6(["Confirmar asistencia"])
+        UC7(["Enviar recordatorio"])
+        UC8(["Solicitar cita en línea"])
+        UC9(["Registrar historia clínica"])
+        UC10(["Registrar evolución de la atención"])
+        UC11(["Elaborar plan de tratamiento"])
+        UC12(["Registrar pago o abono"])
+        UC13(["Gestionar usuarios y horarios"])
+        UC14(["Consultar reportes y auditoría"])
+    end
+    REC --- UC1 & UC2 & UC3 & UC5 & UC6 & UC12
+    ODO --- UC1 & UC9 & UC10 & UC11
+    PAC --- UC8
+    ADM --- UC1 & UC13 & UC14
+    UC3 -. "include" .-> UC4
+    UC8 -. "include" .-> UC4
+    UC7 --- MSG
+    UC7 -. "extend" .-> UC3

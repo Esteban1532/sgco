@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block titulo %}Agendar cita{% endblock %}
+{% block contenido %}
+<h1 class="h3 mb-3">Agendar cita</h1>
+<div class="row g-3">
+  <div class="col-lg-5">
+    <form method="get" class="tarjeta" novalidate>
+      <p class="text-muted small mb-3">1. Datos de la cita</p>
+      {% include 'campos.html' %}
+      <button class="btn btn-sgco w-100">Ver horas libres</button>
+    </form>
+  </div>
+  <div class="col-lg-7">
+    <div class="tarjeta">
+      <p class="text-muted small mb-3">2. Elija la hora</p>
+      {% if franjas is None %}
+        <p class="text-muted mb-0">Complete los datos para ver las horas libres del odontólogo.</p>
+      {% elif franjas %}
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% for campo in form %}<input type="hidden" name="{{ campo.html_name }}" value="{{ campo.value|default_if_none:'' }}">{% endfor %}
+          <div class="d-flex flex-wrap gap-2">
+            {% for h in franjas %}
+              <button class="btn btn-outline-primary franja" name="hora" value="{{ h|time:'H:i' }}">{{ h|time:"H:i" }}</button>
+            {% endfor %}
+          </div>
+          <p class="small text-muted mt-3 mb-0">Al elegir la hora la cita queda agendada y se envía la confirmación al paciente.</p>
+        </form>
+      {% else %}
+        <p class="mb-0">El odontólogo no tiene horas libres ese día. Pruebe con otra fecha.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

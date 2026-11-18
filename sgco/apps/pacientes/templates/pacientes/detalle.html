@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block titulo %}{{ paciente }}{% endblock %}
+{% block contenido %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <h1 class="h3 mb-0">{{ paciente.nombre_completo }}</h1>
+  <div class="d-flex gap-2">
+    {% if user.es_odontologo %}
+      <a class="btn btn-sgco" href="{% url 'historia:ver' paciente.pk %}">Historia clínica</a>
+      <a class="btn btn-outline-secondary" href="{% url 'tratamientos:nuevo' paciente.pk %}">Nuevo plan de tratamiento</a>
+    {% endif %}
+    {% if user.es_recepcionista or user.es_administrador %}
+      <a class="btn btn-sgco" href="{% url 'agenda:nueva' %}?paciente={{ paciente.pk }}">Agendar cita</a>
+      <a class="btn btn-outline-secondary" href="{% url 'pacientes:editar' paciente.pk %}">Editar datos</a>
+    {% endif %}
+  </div>
+</div>
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="tarjeta">
+      <h2 class="h6 text-muted">Datos de contacto</h2>
+      <dl class="mb-0">
+        <dt>Documento</dt><dd>{{ paciente.documento }}</dd>
+        <dt>Edad</dt><dd>{{ paciente.edad }} años</dd>
+        <dt>Teléfono</dt><dd>{{ paciente.telefono }}</dd>
+        <dt>Correo</dt><dd>{{ paciente.correo|default:"—" }}</dd>
+        <dt>Recordatorios</dt><dd>{{ paciente.acepta_mensajes|yesno:"Sí,No" }}</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="tarjeta mb-3">
+      <h2 class="h6 text-muted">Planes de tratamiento</h2>
+      <table class="table table-sm mb-0">
+        <thead><tr><th>Fecha</th><th>Descripción</th><th>Estado</th><th class="text-end">Valor</th><th class="text-end">Saldo</th><th></th></tr></thead>
+        <tbody>
+        {% for plan in planes %}
+          <tr><td>{{ plan.fecha|date:"d/m/Y" }}</td><td>{{ plan.descripcion }}</td><td>{{ plan.get_estado_display }}</td>
+            <td class="text-end">${{ plan.valor_total|intcomma }}</td><td class="text-end fw-bold">${{ plan.saldo|intcomma }}</td>
+            <td class="text-end"><a href="{% url 'tratamientos:detalle' plan.pk %}">Ver</a></td></tr>
+        {% empty %}<tr><td colspan="6" class="text-muted">Sin planes de tratamiento.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="tarjeta">
+      <h2 class="h6 text-muted">Citas</h2>
+      <table class="table table-sm mb-0">
+        <thead><tr><th>Fecha</th><th>Hora</th><th>Odontólogo</th><th>Motivo</th><th>Estado</th></tr></thead>
+        <tbody>
+        {% for c in citas %}
+          <tr><td>{{ c.fecha|date:"d/m/Y" }}</td><td>{{ c.hora_inicio|time:"H:i" }}</td><td>{{ c.odontologo }}</td><td>{{ c.motivo }}</td>
+            <td><span class="badge estado-{{ c.estado }}">{{ c.get_estado_display }}</span></td></tr>
+        {% empty %}<tr><td colspan="5" class="text-muted">Sin citas.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

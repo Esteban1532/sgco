@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block titulo %}Historia clínica{% endblock %}
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Historia clínica · {{ paciente }}</h1>
+  <a class="btn btn-outline-secondary" href="{% url 'historia:editar' paciente.pk %}">Editar anamnesis</a>
+</div>
+{% if historia.alergias %}<div class="alergia mb-3"><strong>Alergias:</strong> {{ historia.alergias }}</div>{% endif %}
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="tarjeta">
+      <p class="text-muted small">Abierta el {{ historia.fecha_apertura|date:"d/m/Y" }} · {{ paciente.edad }} años</p>
+      <dl class="mb-0">
+        <dt>Motivo de consulta</dt><dd>{{ historia.motivo_consulta|default:"—"|linebreaksbr }}</dd>
+        <dt>Antecedentes</dt><dd>{{ historia.antecedentes|default:"—"|linebreaksbr }}</dd>
+        <dt>Medicamentos</dt><dd>{{ historia.medicamentos|default:"—" }}</dd>
+        <dt>Examen inicial</dt><dd>{{ historia.examen_inicial|default:"—"|linebreaksbr }}</dd>
+      </dl>
+    </div>
+    <form method="post" action="{% url 'historia:evolucion' paciente.pk %}" class="tarjeta mt-3" novalidate>
+      {% csrf_token %}
+      <h2 class="h6">Registrar evolución</h2>
+      {% with form=form_evolucion %}{% include 'campos.html' %}{% endwith %}
+      <button class="btn btn-sgco">Registrar</button>
+      <p class="small text-muted mt-2 mb-0">Una evolución registrada no se puede modificar ni borrar.</p>
+    </form>
+  </div>
+  <div class="col-lg-7">
+    <div class="tarjeta">
+      <h2 class="h6 text-muted">Evoluciones</h2>
+      {% for e in evoluciones %}
+        <div class="border-bottom py-2">
+          <div class="d-flex justify-content-between"><strong>{{ e.procedimiento }}</strong><span class="small text-muted">{{ e.fecha|date:"d/m/Y H:i" }}</span></div>
+          <div>{{ e.descripcion|linebreaksbr }}</div>
+          <div class="small text-muted">{{ e.odontologo }}{% if e.cita %} · cita del {{ e.cita.fecha|date:"d/m/Y" }}{% endif %}</div>
+        </div>
+      {% empty %}<p class="text-muted mb-0">Aún no hay evoluciones.</p>{% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo %}Mensajes{% endblock %}
+{% block contenido %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <h1 class="h3 mb-0">Mensajes a pacientes</h1>
+  <div class="d-flex gap-2">
+    <form method="post" action="{% url 'notificaciones:recordatorios' %}">{% csrf_token %}<button class="btn btn-sgco">Enviar recordatorios de mañana</button></form>
+    <form method="post" action="{% url 'notificaciones:reintentar' %}">{% csrf_token %}<button class="btn btn-outline-secondary">Reintentar pendientes ({{ pendientes }})</button></form>
+  </div>
+</div>
+<div class="tarjeta">
+<table class="table table-sm mb-0">
+  <thead><tr><th>Fecha</th><th>Paciente</th><th>Tipo</th><th>Mensaje</th><th>Intentos</th><th>Estado</th></tr></thead>
+  <tbody>
+  {% for m in mensajes %}
+    <tr><td>{{ m.creado_en|date:"d/m/Y H:i" }}</td><td>{{ m.paciente }}</td><td>{{ m.get_tipo_display }}</td><td>{{ m.contenido }}</td><td>{{ m.intentos }}</td>
+      <td>{% if m.estado == 'ENVIADO' %}<span class="badge bg-success">Enviado</span>{% else %}<span class="badge bg-warning text-dark">Pendiente</span>{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="6" class="text-muted">Sin mensajes.</td></tr>{% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

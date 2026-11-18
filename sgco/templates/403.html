@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block titulo %}Acceso denegado{% endblock %}
+{% block contenido %}
+<div class="tarjeta text-center mt-5 mx-auto" style="max-width:520px">
+  <h1 class="h3">Acceso denegado</h1>
+  <p class="text-muted">Su rol no tiene permiso para ver esta información.</p>
+  <a class="btn btn-sgco" href="{% url 'inicio' %}">Volver al inicio</a>
+</div>
+{% endblock %}

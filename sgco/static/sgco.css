@@ -1,0 +1,13 @@
+body { background: #f5f7fa; }
+.bg-sgco { background: #1f4e79; }
+.btn-sgco { background: #1f4e79; color: #fff; }
+.btn-sgco:hover { background: #173d5f; color: #fff; }
+.tarjeta { background: #fff; border: 1px solid #dde3ea; border-radius: .5rem; padding: 1.25rem; }
+.cifra { font-size: 2rem; font-weight: 700; color: #1f4e79; }
+.estado-PROGRAMADA { background: #e7f0fb; color: #1f4e79; }
+.estado-ATENDIDA { background: #e3f4ef; color: #1c7a6e; }
+.estado-INASISTENCIA { background: #fdecea; color: #b4412b; }
+.estado-CANCELADA { background: #eceff3; color: #64748b; text-decoration: line-through; }
+.franja { min-width: 5.5rem; }
+.alergia { background: #fdecea; border-left: 4px solid #e76f51; padding: .5rem .75rem; }
+.login { max-width: 380px; margin: 10vh auto; }
