@@ -387,6 +387,8 @@ const fase2 = [
   vineta('Schwaber, K. y Sutherland, J. (2020). La Guía de Scrum.'),
   vineta('Sommerville, I. (2011). Ingeniería de software (9.a ed.). Pearson.'),
   vineta('Pressman, R. y Maxim, B. (2021). Ingeniería del software: un enfoque práctico (9.a ed.). McGraw-Hill.'),
+  vineta('Card, S., Moran, T. y Newell, A. (1983). The Psychology of Human-Computer Interaction. Lawrence Erlbaum.'),
+  vineta('Nielsen, J. (1994). Usability Engineering. Morgan Kaufmann.'),
 ];
 
 const parte3 = fase3({

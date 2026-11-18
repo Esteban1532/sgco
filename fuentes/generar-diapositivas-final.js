@@ -151,7 +151,7 @@ tabla(s, ['Requerimiento', 'Diseño (Fase 2)', 'Implementación', 'Prueba', 'Res
 s = nueva('Atributos de calidad verificados');
 tarjeta(s, 0.6, 1.3, 3.95, 4.6, C.azul, 'Seguridad: cumple', '■ Matriz de permisos: 15 de 15 combinaciones correctas (CP-14).\n■ Cada consulta de historia queda en auditoría (CP-13).\n■ Contraseñas con hash PBKDF2 (CP-16).', { tam: 14 });
 tarjeta(s, 4.7, 1.3, 3.95, 4.6, C.verde, 'Fiabilidad: cumple', '■ Con la mensajería caída la cita se guarda y el mensaje queda pendiente; el reintento lo envía (CP-15).\n■ Respaldo de datos probado (CP-17).\n■ Disponibilidad: sin verificar (no desplegado).', { tam: 14 });
-tarjeta(s, 8.8, 1.3, 3.9, 4.6, C.coral, 'Usabilidad: parcial', '■ Agendar: 1 pantalla, 5 campos y 1 clic (límite: 3 pantallas).\n■ Falta la prueba con 3 personas (protocolo MU-01).', { tam: 14 });
+tarjeta(s, 8.8, 1.3, 3.9, 4.6, C.coral, 'Usabilidad: estimada', '■ Modelo KLM: agendar toma 29 s (meta: 60 s), en 1 pantalla.\n■ Evaluación heurística: 7 hallazgos, 2 graves (lista de pacientes y asistencia sin deshacer).\n■ Falta probar con usuarios nuevos.', { tam: 14 });
 nota(s, 'Rendimiento (RNF11): la agenda del día carga en 28,6 ms en promedio con 1.200 citas; el límite es 2 s.', C.ambar, 6.2);
 
 // 10. Gestión y proceso
