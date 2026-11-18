@@ -152,7 +152,7 @@ module.exports = function fase3(h) {
     tabla(['ID', 'Requerimiento no funcional', 'MoSCoW', 'Estado', 'Justificación'], ESTADO_RNF, [800, 1800, 900, 1300, 4560]),
     blanco(),
     h2('22.3 Repositorio'),
-    p([b('Enlace: '), '[URL del repositorio en GitHub o GitLab]']),
+    p([b('Enlace: '), 'https://github.com/Esteban1532/sgco']),
     p('El código está en la carpeta sgco/ con control de versiones Git. El README explica cómo instalar, cargar los datos de prueba, ejecutar el sistema y correr las pruebas (ver Anexo A). El proyecto tiene un solo autor, así que todos los commits son suyos; el historial (git log --oneline) muestra el avance del prototipo por historia de usuario.'),
     tabla(['Carpeta', 'Contenido'], [
       ['config/', 'Configuración de Django (seguridad, sesión, base de datos, mensajería).'],
@@ -325,7 +325,7 @@ module.exports = function fase3(h) {
     ], [2000, 7360]),
     blanco(),
     h1('Anexo B. Repositorio y evidencias'),
-    vineta([b('Repositorio: '), '[URL del repositorio]']),
+    vineta([b('Repositorio: '), 'https://github.com/Esteban1532/sgco']),
     vineta([b('Capturas: '), 'sgco/docs/capturas (17 imágenes, incluida la vista en celular).']),
     vineta([b('Resultados de pruebas: '), 'sgco/docs/resultados-pruebas.txt y sgco/docs/resultados-rendimiento.txt.']),
     vineta([b('Video de la demo: '), '[URL o nombre del archivo del video de respaldo]']),

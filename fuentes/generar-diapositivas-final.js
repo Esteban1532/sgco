@@ -177,7 +177,7 @@ n += 1;
 s.background = { color: C.azul };
 s.addText('Gracias', { x: 0.8, y: 1.9, w: 11.7, h: 1.2, fontFace: LETRA, fontSize: 54, bold: true, color: C.blanco, align: 'center' });
 s.addText('SGCO evita citas cruzadas, avisa al paciente y protege la historia clínica.', { x: 0.8, y: 3.15, w: 11.7, h: 0.6, fontFace: LETRA, fontSize: 20, color: 'BFD7EA', align: 'center' });
-s.addText('Repositorio: [URL del repositorio]', { x: 0.8, y: 4.1, w: 11.7, h: 0.5, fontFace: LETRA, fontSize: 16, color: C.blanco, align: 'center' });
+s.addText('Repositorio: https://github.com/Esteban1532/sgco', { x: 0.8, y: 4.1, w: 11.7, h: 0.5, fontFace: LETRA, fontSize: 16, color: C.blanco, align: 'center' });
 s.addText('¿Preguntas?', { x: 0.8, y: 4.9, w: 11.7, h: 0.7, fontFace: LETRA, fontSize: 26, color: C.blanco, align: 'center' });
 [[5.17, C.verde], [6.17, C.ambar], [7.17, C.coral]].forEach(([x, c]) => s.addShape(pptx.ShapeType.rect, { x, y: 5.85, w: 1.0, h: 0.08, fill: { color: c }, line: { color: c } }));
 
