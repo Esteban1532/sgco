@@ -1,5 +1,10 @@
-# Archivos de Office abiertos
+# El repositorio guarda solo el código del prototipo (sgco/).
+# Documentos, presentaciones, diagramas y sus generadores quedan fuera.
+*.docx
+*.pptx
+*.pdf
 ~$*
-# Versión anterior reemplazada por el documento final consolidado
-Documento Fase 1 y Fase 2 - Consultorio Odontologico.docx
+fuentes/
+imagenes/
+Guion de exposicion.md
 node_modules/
