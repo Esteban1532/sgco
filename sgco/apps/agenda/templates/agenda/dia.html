@@ -35,8 +35,8 @@
           {% if c.motivo_cambio %}<div class="small fst-italic text-muted">{{ c.motivo_cambio }}</div>{% endif %}
           {% if not user.es_odontologo and c.estado == 'PROGRAMADA' %}
           <div class="d-flex flex-wrap gap-1 mt-2">
-            <form method="post" action="{% url 'agenda:asistencia' c.pk %}">{% csrf_token %}<input type="hidden" name="asistio" value="1"><button class="btn btn-sm btn-outline-success">Atendida</button></form>
-            <form method="post" action="{% url 'agenda:asistencia' c.pk %}">{% csrf_token %}<input type="hidden" name="asistio" value="0"><button class="btn btn-sm btn-outline-danger">No asistió</button></form>
+            <form method="post" action="{% url 'agenda:asistencia' c.pk %}" data-confirmar="¿Marcar la cita de {{ c.paciente }} como atendida? No se puede deshacer.">{% csrf_token %}<input type="hidden" name="asistio" value="1"><button class="btn btn-sm btn-outline-success">Atendida</button></form>
+            <form method="post" action="{% url 'agenda:asistencia' c.pk %}" data-confirmar="¿Registrar que {{ c.paciente }} no asistió? No se puede deshacer.">{% csrf_token %}<input type="hidden" name="asistio" value="0"><button class="btn btn-sm btn-outline-danger">No asistió</button></form>
             <a class="btn btn-sm btn-outline-secondary" href="{% url 'agenda:reprogramar' c.pk %}">Reprogramar</a>
             <button class="btn btn-sm btn-link text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#cancelar{{ c.pk }}">Cancelar</button>
           </div>

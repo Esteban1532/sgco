@@ -93,6 +93,30 @@ dl dd { margin-bottom: .65rem; }
 .login { max-width: 380px; margin: 12vh auto; }
 .login .marca { color: var(--sgco); font-weight: 700; font-size: 2.4rem; letter-spacing: .02em; }
 
+/* Movimiento y profundidad */
+main { animation: aparecer .25s ease-out; }
+@keyframes aparecer { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.navbar { box-shadow: 0 2px 6px rgba(15, 42, 68, .18); }
+.tarjeta { box-shadow: 0 1px 2px rgba(15, 42, 68, .05); transition: box-shadow .2s, transform .2s; }
+.tarjeta-cifra:hover, .cita:hover { box-shadow: 0 6px 16px rgba(15, 42, 68, .10); transform: translateY(-2px); }
+.cita { transition: box-shadow .2s, transform .2s; }
+.btn { transition: background-color .15s, border-color .15s, color .15s, box-shadow .15s, transform .1s; }
+.btn:active { transform: scale(.97); }
+.franja:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(31, 78, 121, .2); }
+.table > tbody tr > td { transition: background-color .15s; }
+.alert { border: 0; border-left: 4px solid currentColor; box-shadow: 0 2px 8px rgba(15, 42, 68, .08); animation: aparecer .3s ease-out; }
+.btn.enviando { opacity: .65; cursor: wait; }
+.btn.enviando::after { content: ""; display: inline-block; width: .8em; height: .8em; margin-left: .45em; vertical-align: -.1em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: girar .7s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* Pantalla de ingreso */
+body:has(.login) { background: linear-gradient(160deg, #e7f0fb 0%, #f3f5f8 55%); min-height: 100vh; }
+.login .tarjeta { box-shadow: 0 10px 30px rgba(15, 42, 68, .12); border: 0; padding: 1.75rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
 @media (max-width: 575px) {
   .filtro-agenda .form-control { flex: 1 1 8rem; }
   .filtro-agenda .form-select { min-width: 0; flex: 1 1 100%; order: 3; }

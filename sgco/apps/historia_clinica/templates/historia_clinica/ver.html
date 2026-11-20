@@ -17,7 +17,7 @@
         <dt>Examen inicial</dt><dd>{{ historia.examen_inicial|default:"—"|linebreaksbr }}</dd>
       </dl>
     </div>
-    <form method="post" action="{% url 'historia:evolucion' paciente.pk %}" class="tarjeta mt-3" novalidate>
+    <form method="post" action="{% url 'historia:evolucion' paciente.pk %}" class="tarjeta mt-3" novalidate data-confirmar="La evolución no se podrá modificar ni borrar. ¿Registrarla?">
       {% csrf_token %}
       <h2 class="h6">Registrar evolución</h2>
       {% with form=form_evolucion %}{% include 'campos.html' %}{% endwith %}
