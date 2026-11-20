@@ -3,13 +3,13 @@
 {% block contenido %}
 <h1 class="h3 mb-3">Hoy, {{ hoy|date:"l j \d\e F" }}</h1>
 <div class="row g-3 mb-4">
-  <div class="col-md-4"><div class="tarjeta"><div class="text-muted">Citas programadas</div><div class="cifra">{{ programadas }}</div></div></div>
-  <div class="col-md-4"><div class="tarjeta"><div class="text-muted">Atendidas</div><div class="cifra">{{ atendidas }}</div></div></div>
-  <div class="col-md-4"><div class="tarjeta"><div class="text-muted">Inasistencias</div><div class="cifra">{{ inasistencias }}</div></div></div>
+  <div class="col-md-4"><div class="tarjeta tarjeta-cifra"><div class="text-muted">Citas programadas</div><div class="cifra">{{ programadas }}</div></div></div>
+  <div class="col-md-4"><div class="tarjeta tarjeta-cifra verde"><div class="text-muted">Atendidas</div><div class="cifra">{{ atendidas }}</div></div></div>
+  <div class="col-md-4"><div class="tarjeta tarjeta-cifra rojo"><div class="text-muted">Inasistencias</div><div class="cifra">{{ inasistencias }}</div></div></div>
 </div>
 <div class="tarjeta">
-  <div class="d-flex justify-content-between align-items-center mb-2">
-    <h2 class="h5 mb-0">{% if user.es_odontologo %}Mi agenda de hoy{% else %}Citas de hoy{% endif %}</h2>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h6 mb-0">{% if user.es_odontologo %}Mi agenda de hoy{% else %}Citas de hoy{% endif %}</h2>
     <a href="{% url 'agenda:dia' %}" class="btn btn-sm btn-outline-secondary">Ver agenda completa</a>
   </div>
   <table class="table table-sm align-middle mb-0">

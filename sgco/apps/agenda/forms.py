@@ -13,13 +13,13 @@ class BuscarFranjaForm(forms.Form):
 
     paciente = forms.ModelChoiceField(label='Paciente', queryset=Paciente.objects.all())
     odontologo = forms.ModelChoiceField(label='Odontólogo', queryset=Odontologo.objects.filter(is_active=True))
-    fecha = forms.DateField(label='Fecha', widget=forms.DateInput(attrs={'type': 'date'}))
+    fecha = forms.DateField(label='Fecha', widget=forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'))
     duracion_min = forms.TypedChoiceField(label='Duración', choices=DURACIONES, coerce=int, initial=30)
     motivo = forms.CharField(label='Motivo', max_length=200)
 
 
 class ReprogramarForm(forms.Form):
-    fecha = forms.DateField(label='Nueva fecha', widget=forms.DateInput(attrs={'type': 'date'}))
+    fecha = forms.DateField(label='Nueva fecha', widget=forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'))
     motivo = forms.CharField(label='Motivo del cambio', max_length=200)
 
 

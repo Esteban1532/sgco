@@ -3,8 +3,8 @@
 {% block contenido %}
 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
   <h1 class="h3 mb-0">Agenda del {{ fecha|date:"l j \d\e F" }}</h1>
-  <form method="get" class="d-flex gap-2">
-    <a class="btn btn-outline-secondary" href="?fecha={{ anterior|date:'Y-m-d' }}">&larr;</a>
+  <form method="get" class="d-flex flex-wrap gap-2 filtro-agenda">
+    <a class="btn btn-outline-secondary" href="?fecha={{ anterior|date:'Y-m-d' }}" title="Día anterior">&larr;</a>
     <input type="date" name="fecha" value="{{ fecha|date:'Y-m-d' }}" class="form-control">
     {% if not user.es_odontologo %}
     <select name="odontologo" class="form-select">
@@ -13,35 +13,39 @@
     </select>
     {% endif %}
     <button class="btn btn-outline-secondary">Ver</button>
-    <a class="btn btn-outline-secondary" href="?fecha={{ siguiente|date:'Y-m-d' }}">&rarr;</a>
+    <a class="btn btn-outline-secondary" href="?fecha={{ siguiente|date:'Y-m-d' }}" title="Día siguiente">&rarr;</a>
   </form>
 </div>
 <div class="row g-3">
 {% for odontologo, citas in columnas %}
   <div class="col-xl-4 col-md-6">
-    <div class="tarjeta h-100">
-      <h2 class="h5">{{ odontologo }} <small class="text-muted">· {{ odontologo.especialidad }}</small></h2>
+    <div class="tarjeta h-100 columna-odontologo">
+      <div class="d-flex justify-content-between align-items-start mb-3">
+        <div><h2>{{ odontologo }}</h2><div class="especialidad">{{ odontologo.especialidad }}</div></div>
+        <span class="badge text-bg-light border">{{ citas|length }} cita{{ citas|length|pluralize }}</span>
+      </div>
       {% for c in citas %}
-        <div class="border rounded p-2 mb-2 estado-{{ c.estado }}">
+        <div class="cita cita-{{ c.estado }}">
           <div class="d-flex justify-content-between">
-            <strong>{{ c.hora_inicio|time:"H:i" }} - {{ c.hora_fin|time:"H:i" }}</strong>
-            <span class="small">{{ c.get_estado_display }}</span>
+            <span class="hora">{{ c.hora_inicio|time:"H:i" }} - {{ c.hora_fin|time:"H:i" }}</span>
+            <span class="badge estado-{{ c.estado }}">{{ c.get_estado_display }}</span>
           </div>
-          <div><a href="{% url 'pacientes:detalle' c.paciente.pk %}">{{ c.paciente }}</a> · {{ c.motivo }}</div>
-          {% if c.motivo_cambio %}<div class="small fst-italic">{{ c.motivo_cambio }}</div>{% endif %}
+          <div class="mt-1"><a href="{% url 'pacientes:detalle' c.paciente.pk %}">{{ c.paciente }}</a></div>
+          <div class="motivo">{{ c.motivo }}</div>
+          {% if c.motivo_cambio %}<div class="small fst-italic text-muted">{{ c.motivo_cambio }}</div>{% endif %}
           {% if not user.es_odontologo and c.estado == 'PROGRAMADA' %}
           <div class="d-flex flex-wrap gap-1 mt-2">
-            <form method="post" action="{% url 'agenda:asistencia' c.pk %}">{% csrf_token %}<input type="hidden" name="asistio" value="1"><button class="btn btn-sm btn-success">Atendida</button></form>
+            <form method="post" action="{% url 'agenda:asistencia' c.pk %}">{% csrf_token %}<input type="hidden" name="asistio" value="1"><button class="btn btn-sm btn-outline-success">Atendida</button></form>
             <form method="post" action="{% url 'agenda:asistencia' c.pk %}">{% csrf_token %}<input type="hidden" name="asistio" value="0"><button class="btn btn-sm btn-outline-danger">No asistió</button></form>
             <a class="btn btn-sm btn-outline-secondary" href="{% url 'agenda:reprogramar' c.pk %}">Reprogramar</a>
-            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#cancelar{{ c.pk }}">Cancelar</button>
+            <button class="btn btn-sm btn-link text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#cancelar{{ c.pk }}">Cancelar</button>
           </div>
           <form method="post" action="{% url 'agenda:cancelar' c.pk %}" class="collapse mt-2" id="cancelar{{ c.pk }}">{% csrf_token %}
             <div class="input-group input-group-sm"><input name="motivo" class="form-control" placeholder="Motivo de la cancelación" required><button class="btn btn-danger">Confirmar</button></div>
           </form>
           {% endif %}
         </div>
-      {% empty %}<p class="text-muted mb-0">Sin citas.</p>{% endfor %}
+      {% empty %}<p class="text-muted mb-0">Sin citas este día.</p>{% endfor %}
     </div>
   </div>
 {% endfor %}

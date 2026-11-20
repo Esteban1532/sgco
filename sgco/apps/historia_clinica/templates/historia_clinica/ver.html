@@ -29,7 +29,7 @@
     <div class="tarjeta">
       <h2 class="h6 text-muted">Evoluciones</h2>
       {% for e in evoluciones %}
-        <div class="border-bottom py-2">
+        <div class="evolucion">
           <div class="d-flex justify-content-between"><strong>{{ e.procedimiento }}</strong><span class="small text-muted">{{ e.fecha|date:"d/m/Y H:i" }}</span></div>
           <div>{{ e.descripcion|linebreaksbr }}</div>
           <div class="small text-muted">{{ e.odontologo }}{% if e.cita %} · cita del {{ e.cita.fecha|date:"d/m/Y" }}{% endif %}</div>

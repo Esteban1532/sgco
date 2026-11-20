@@ -49,7 +49,9 @@ def nueva(request):
     """Agendar cita en una sola pantalla: datos, franjas libres y confirmación (RF06, RF07, RNF08)."""
     servicio = AgendaService()
     datos_iniciales = {'paciente': request.GET.get('paciente'), 'fecha': timezone.localdate(), 'duracion_min': 30}
-    form = BuscarFranjaForm(request.POST or request.GET or None, initial=datos_iniciales)
+    # Si solo llega ?paciente= (botón Agendar de la ficha), el formulario se muestra sin errores.
+    busqueda = request.GET if 'odontologo' in request.GET else None
+    form = BuscarFranjaForm(request.POST or busqueda, initial=datos_iniciales)
     franjas = None
     if form.is_bound and form.is_valid():
         d = form.cleaned_data

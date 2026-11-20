@@ -1,13 +1,106 @@
-body { background: #f5f7fa; }
-.bg-sgco { background: #1f4e79; }
-.btn-sgco { background: #1f4e79; color: #fff; }
-.btn-sgco:hover { background: #173d5f; color: #fff; }
-.tarjeta { background: #fff; border: 1px solid #dde3ea; border-radius: .5rem; padding: 1.25rem; }
-.cifra { font-size: 2rem; font-weight: 700; color: #1f4e79; }
-.estado-PROGRAMADA { background: #e7f0fb; color: #1f4e79; }
-.estado-ATENDIDA { background: #e3f4ef; color: #1c7a6e; }
-.estado-INASISTENCIA { background: #fdecea; color: #b4412b; }
-.estado-CANCELADA { background: #eceff3; color: #64748b; text-decoration: line-through; }
+/* Colores del consultorio */
+:root {
+  --sgco: #1f4e79;
+  --sgco-oscuro: #173d5f;
+  --sgco-claro: #e7f0fb;
+  --fondo: #f3f5f8;
+  --borde: #dde3ea;
+  --texto-suave: #64748b;
+  --verde: #1c7a6e;
+  --rojo: #b4412b;
+  --ambar: #b7791f;
+  --bs-link-color: #1f4e79;
+  --bs-link-color-rgb: 31, 78, 121;
+  --bs-link-hover-color: #173d5f;
+  --bs-link-hover-color-rgb: 23, 61, 95;
+}
+
+body { background: var(--fondo); color: #1e293b; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Barra superior */
+.bg-sgco { background: var(--sgco); }
+.navbar { padding-top: 0; padding-bottom: 0; }
+.navbar-brand small { font-weight: 400; font-size: .8rem; opacity: .75; }
+.navbar-dark .nav-link { color: rgba(255, 255, 255, .78); padding: .9rem .8rem; border-bottom: 3px solid transparent; }
+.navbar-dark .nav-link:hover { color: #fff; text-decoration: none; }
+.navbar-dark .nav-link.active { color: #fff; border-bottom-color: #fff; }
+.usuario-actual { color: #fff; font-size: .9rem; line-height: 1.2; text-align: right; }
+.usuario-actual small { display: block; font-size: .75rem; opacity: .7; }
+
+/* Títulos de página */
+main h1.h3 { font-weight: 600; color: #0f2a44; }
+
+/* Botones y campos */
+.btn-sgco { background: var(--sgco); border-color: var(--sgco); color: #fff; }
+.btn-sgco:hover, .btn-sgco:focus { background: var(--sgco-oscuro); border-color: var(--sgco-oscuro); color: #fff; }
+.btn-outline-primary { --bs-btn-color: var(--sgco); --bs-btn-border-color: #b9cde3; --bs-btn-hover-bg: var(--sgco); --bs-btn-hover-border-color: var(--sgco); --bs-btn-active-bg: var(--sgco-oscuro); --bs-btn-active-border-color: var(--sgco-oscuro); }
+.form-control:focus, .form-select:focus { border-color: #7fa6cc; box-shadow: 0 0 0 .2rem rgba(31, 78, 121, .15); }
+.form-label { font-weight: 500; font-size: .92rem; }
+
+/* Tarjetas */
+.tarjeta { background: #fff; border: 1px solid var(--borde); border-radius: .5rem; padding: 1.25rem; }
+.tarjeta h2.h6 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--texto-suave); margin-bottom: .75rem; }
+.paso { display: inline-block; width: 1.5rem; height: 1.5rem; line-height: 1.5rem; text-align: center; border-radius: 50%; background: var(--sgco); color: #fff; font-size: .8rem; margin-right: .4rem; }
+
+/* Cifras */
+.cifra { font-size: 1.9rem; font-weight: 700; color: var(--sgco); line-height: 1.2; }
+.tarjeta-cifra { border-left: 4px solid var(--sgco); }
+.tarjeta-cifra .text-muted { font-size: .9rem; }
+.tarjeta-cifra.verde { border-left-color: var(--verde); }
+.tarjeta-cifra.verde .cifra { color: var(--verde); }
+.tarjeta-cifra.rojo { border-left-color: var(--rojo); }
+.tarjeta-cifra.rojo .cifra { color: var(--rojo); }
+.tarjeta-cifra.ambar { border-left-color: var(--ambar); }
+.tarjeta-cifra.ambar .cifra { color: var(--ambar); }
+
+/* Tablas */
+.tarjeta .table { --bs-table-bg: transparent; }
+.table > thead th { font-size: .8rem; font-weight: 600; color: var(--texto-suave); border-bottom-width: 2px; white-space: nowrap; }
+.table > tbody tr:hover > td { background: #f8fafc; }
+.table td { vertical-align: middle; }
+
+/* Estados de la cita */
+.badge { font-weight: 600; }
+.estado-PROGRAMADA { background: var(--sgco-claro); color: var(--sgco); }
+.estado-ATENDIDA { background: #e3f4ef; color: var(--verde); }
+.estado-INASISTENCIA { background: #fdecea; color: var(--rojo); }
+.estado-CANCELADA { background: #eceff3; color: var(--texto-suave); text-decoration: line-through; }
+
+/* Agenda del día */
+.filtro-agenda .form-control { width: auto; }
+.filtro-agenda .form-select { width: auto; min-width: 15rem; }
+.columna-odontologo h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: .1rem; }
+.columna-odontologo .especialidad { color: var(--texto-suave); font-size: .85rem; }
+.cita { background: #fff; border: 1px solid var(--borde); border-left: 4px solid var(--sgco); border-radius: .4rem; padding: .6rem .75rem; margin-bottom: .6rem; }
+.cita-ATENDIDA { border-left-color: var(--verde); }
+.cita-INASISTENCIA { border-left-color: var(--rojo); }
+.cita-CANCELADA { border-left-color: #cbd5e1; opacity: .75; }
+.cita .hora { font-weight: 600; }
+.cita .motivo { color: var(--texto-suave); font-size: .9rem; }
+
+/* Agendar */
 .franja { min-width: 5.5rem; }
-.alergia { background: #fdecea; border-left: 4px solid #e76f51; padding: .5rem .75rem; }
-.login { max-width: 380px; margin: 10vh auto; }
+
+/* Historia clínica */
+.alergia { background: #fdecea; border-left: 4px solid #e76f51; border-radius: .4rem; padding: .6rem .85rem; }
+dl dt { font-size: .8rem; font-weight: 600; color: var(--texto-suave); }
+dl dd { margin-bottom: .65rem; }
+.evolucion { border-left: 3px solid #c9dbee; padding: .2rem 0 .2rem .85rem; margin-bottom: 1rem; }
+
+/* Ingreso */
+.login { max-width: 380px; margin: 12vh auto; }
+.login .marca { color: var(--sgco); font-weight: 700; font-size: 2.4rem; letter-spacing: .02em; }
+
+@media (max-width: 575px) {
+  .filtro-agenda .form-control { flex: 1 1 8rem; }
+  .filtro-agenda .form-select { min-width: 0; flex: 1 1 100%; order: 3; }
+  .filtro-agenda .btn { order: 4; }
+}
+
+@media (max-width: 991px) {
+  .navbar-dark .nav-link { padding: .5rem 0; border-bottom: 0; }
+  .navbar-dark .nav-link.active { font-weight: 600; }
+  .usuario-actual { text-align: left; margin: .5rem 0; }
+}

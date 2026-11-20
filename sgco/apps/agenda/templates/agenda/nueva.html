@@ -5,14 +5,14 @@
 <div class="row g-3">
   <div class="col-lg-5">
     <form method="get" class="tarjeta" novalidate>
-      <p class="text-muted small mb-3">1. Datos de la cita</p>
+      <h2 class="h6"><span class="paso">1</span>Datos de la cita</h2>
       {% include 'campos.html' %}
       <button class="btn btn-sgco w-100">Ver horas libres</button>
     </form>
   </div>
   <div class="col-lg-7">
     <div class="tarjeta">
-      <p class="text-muted small mb-3">2. Elija la hora</p>
+      <h2 class="h6"><span class="paso">2</span>Elija la hora</h2>
       {% if franjas is None %}
         <p class="text-muted mb-0">Complete los datos para ver las horas libres del odontólogo.</p>
       {% elif franjas %}

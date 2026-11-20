@@ -16,9 +16,9 @@
   </form>
 </div>
 <div class="row g-3 mb-3">
-  <div class="col-md-3"><div class="tarjeta"><div class="text-muted">Citas</div><div class="cifra">{{ total_citas }}</div></div></div>
-  <div class="col-md-3"><div class="tarjeta"><div class="text-muted">Inasistencia</div><div class="cifra">{{ porcentaje_inasistencia }} %</div></div></div>
-  <div class="col-md-6"><div class="tarjeta"><div class="text-muted">Ingresos (pagos registrados)</div><div class="cifra">${{ ingresos|intcomma }}</div></div></div>
+  <div class="col-md-3"><div class="tarjeta tarjeta-cifra"><div class="text-muted">Citas</div><div class="cifra">{{ total_citas }}</div></div></div>
+  <div class="col-md-3"><div class="tarjeta tarjeta-cifra rojo"><div class="text-muted">Inasistencia</div><div class="cifra">{{ porcentaje_inasistencia }} %</div></div></div>
+  <div class="col-md-6"><div class="tarjeta tarjeta-cifra verde"><div class="text-muted">Ingresos (pagos registrados)</div><div class="cifra">${{ ingresos|intcomma }}</div></div></div>
 </div>
 <div class="row g-3">
   <div class="col-md-6"><div class="tarjeta">
